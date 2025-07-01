@@ -56,7 +56,7 @@ This project is an end-to-end data analysis solution designed to extract critica
    - **Business Problem-Solving**: Write and execute complex SQL queries to answer critical business questions, such as:
      
    - find the different payment method and number of Transactions and number of qty sold
-'''sql
+'''sq
 select payment_method,
        count(*) as no_payments,
 	   sum(quantity) as no_quntity_sold
