@@ -65,14 +65,92 @@ from walmart
 Group by payment_method
 ```
    - Identify the Highest_rated Category in each branch Display the branch Category --AVG Rating
+
+```sq
+select *
+from
+(select 
+     branch,
+	 category,
+	 avg(rating) as AVG_Ratings,
+	 Rank() over(partition by branch order by avg(rating) desc) as rank
+from walmart
+group by 1,2)
+where rank=1;
+```
+
    - Identify the Busiest day for each Branch based on number of Transactions
+
+```sq
+select *
+from
+(select  branch,
+        To_char(To_Date(date,'dd/mm/yy'),'day') as day_name,
+        count(*) as no_transactions,
+		Rank() over(Partition by branch order by count(*) desc) as rank
+		from walmart
+		group by 1,2
+)
+where rank=1
+```
    - Calculate the Total quantity of items sold per payment method.List the Payment_method and total_quantity.
+
+```sq
+select payment_method,sum(quantity) as no_qty_sold
+from walmart
+Group By payment_method
+```
+   -Determine the min,max,avg rating of the category for each city. List the city,avg_rating,min_rating,max_rating.]
+
+```sq
+select 
+      city,
+	  category,
+	  max(rating) as max_rating,
+	  min(rating) as min_rating,
+	  avg(rating) as avg_rating
+from walmart
+group by 1,2
+```
+
    -  Calculate the total profit for each Category by considering Total_profit as
-     -(unit_price *quantity*profit_margin).List Category and Total_profit ,orderd from highest to lowest profit.
-    - Determine the most Common payment method for each Branch.
-     - Display branch and the preferred_payment_method
-    - Categorize sales into three groups morning,evening,afternoon
-      -find out each of the shift and number of invoices
+   -  (unit_price *quantity*profit_margin).List Category and Total_profit ,orderd from highest to lowest profit.
+
+```sq
+Select Category,Sum(total) as total_revenue,
+        sum(total*profit_margin) as profit
+from walmart
+Group BY 1;
+```
+  - Determine the most Common payment method for each Branch. Display branch and the preferred_payment_method
+
+```sq
+with cte
+as
+(select branch, payment_method,
+      count(*) as total_trans,
+	  rank() over(partition by branch order by count(*) desc) as rank
+from walmart
+group by 1,2)
+select *
+from cte
+where rank=1
+```
+ - Categorize sales into three groups morning,evening,afternoon. find out eachof the shift and number of invoices.
+
+```sq
+select branch ,
+case 
+     when extract (hour from(time::time))<12 then 'Morning'
+	 when extract(hour from(time::time)) between 12 and 17 then 'Afternoon'
+	 else 'Evening'
+	 end date_time,
+	 count(*)
+from walmart 
+group by 1,2
+order by 1,3 desc
+```
+   
       
 ### 10. Project Publishing and Documentation
    - **Documentation**: Maintain well-structured documentation of the entire process in Markdown or a Jupyter Notebook.
