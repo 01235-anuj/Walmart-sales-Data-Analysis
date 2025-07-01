@@ -56,12 +56,14 @@ This project is an end-to-end data analysis solution designed to extract critica
    - **Business Problem-Solving**: Write and execute complex SQL queries to answer critical business questions, such as:
      
    - find the different payment method and number of Transactions and number of qty sold
-'''sq
+
+'''SQ
 select payment_method,
        count(*) as no_payments,
 	   sum(quantity) as no_quntity_sold
 from walmart 
 Group by payment_method
+
 '''
    - Identify the Highest_rated Category in each branch Display the branch Category --AVG Rating
    - Identify the Busiest day for each Branch based on number of Transactions
