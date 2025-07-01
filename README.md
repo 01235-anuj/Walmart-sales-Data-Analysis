@@ -57,14 +57,13 @@ This project is an end-to-end data analysis solution designed to extract critica
      
    - find the different payment method and number of Transactions and number of qty sold
 
-'''SQ
+```sq
 select payment_method,
        count(*) as no_payments,
 	   sum(quantity) as no_quntity_sold
 from walmart 
 Group by payment_method
-
-'''
+```
    - Identify the Highest_rated Category in each branch Display the branch Category --AVG Rating
    - Identify the Busiest day for each Branch based on number of Transactions
    - Calculate the Total quantity of items sold per payment method.List the Payment_method and total_quantity.
