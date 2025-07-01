@@ -100,7 +100,7 @@ select payment_method,sum(quantity) as no_qty_sold
 from walmart
 Group By payment_method
 ```
-   -Determine the min,max,avg rating of the category for each city. List the city,avg_rating,min_rating,max_rating.]
+   - Determine the min,max,avg rating of the category for each city. List the city,avg_rating,min_rating,max_rating.]
 
 ```sq
 select 
@@ -172,6 +172,5 @@ This section will include your analysis findings:
 ## Future Enhancements
 
 Possible extensions to this project:
-- Integration with a dashboard tool (e.g., Power BI or Tableau) for interactive visualization.
 - Additional data sources to enhance analysis depth.
 - Automation of the data pipeline for real-time data ingestion and analysis.
